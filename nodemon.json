@@ -1,0 +1,7 @@
+{
+  "env": {
+    "MONGO_USERNAME": "chanchal",
+    "MONGO_PASSWORD": "chanchal123456",
+    "MONGO_DATABASE": "feed-deployed"
+  }
+}

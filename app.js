@@ -49,6 +49,9 @@ app.use((req, res, next) => {
 
 app.use("/feed", feedRoutes);
 app.use("/auth", authRoutes);
+app.use("/check-api", (req, res, next) => {
+  res.status(200).json({ message: "API is working!" });
+});
 
 app.use((error, req, res, next) => {
   console.log(error);
@@ -61,10 +64,11 @@ app.use((error, req, res, next) => {
 
 mongoose
   .connect(
-    "mongodb+srv://chanchal:chanchal123456@cluster0.vfl3qua.mongodb.net/feed-deployed?retryWrites=true&w=majority&appName=Cluster0"
+    // `mongodb+srv://chanchal:chanchal123456@cluster0.vfl3qua.mongodb.net/feed-deployed?retryWrites=true&w=majority&appName=Cluster0`
+    `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@cluster0.vfl3qua.mongodb.net/${process.env.MONGO_DATABASE}?retryWrites=true&w=majority&appName=Cluster0`
   )
   .then((result) => {
     console.log("Connected!");
-    const server = app.listen(8080);
+    const server = app.listen(process.env.PORT || 8080);
   })
   .catch((err) => console.log(err));
